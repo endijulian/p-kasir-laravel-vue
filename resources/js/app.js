@@ -3,7 +3,11 @@ require('./bootstrap');
 
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import loading from 'vuejs-loading-screen'
+
 Vue.use(VueRouter)
+Vue.use(loading)
+
 
 //Import User Class
 import User from './Helpers/User';
@@ -36,10 +40,11 @@ window.Toast = Toast;
 
 // sweet alert end
 
-
 const router = new VueRouter({
     routes,
-    mode: 'history'
+    mode: 'history',
+    linkActiveClass: "active", // active class for non-exact links.
+    linkExactActiveClass: "active" // active class for *exact* links.
 })
 
 
