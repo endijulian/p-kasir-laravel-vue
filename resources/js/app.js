@@ -9,12 +9,12 @@ Vue.use(VueRouter)
 import User from './Helpers/User';
 window.User = User;
 
-//import route file routes.js
-import {routes} from './routes';
-
 //import notification
 import Notification from './Helpers/Notification';
 window.Notification = Notification;
+
+//import route file routes.js
+import {routes} from './routes';
 
 //sweet alert Start
 import Swal from 'sweetalert2'

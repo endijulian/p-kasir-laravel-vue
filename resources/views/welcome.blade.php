@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
   <title>
-    Material Dashboard 2 by Creative Tim
+    Aplikasi Kasir
   </title>
 
   <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -24,7 +24,7 @@
 <body class="g-sidenav-show  bg-gray-200">
 
     <div id="app">
-        <aside v-show="$router.path === '/' ? false : true" class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main" style="display: none;">
+        <aside v-show="$route.path === '/' ? false : true" class="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3   bg-gradient-dark" id="sidenav-main" style="display: none;">
             <div class="sidenav-header">
               <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
               <a class="navbar-brand m-0" href="#">
@@ -98,7 +98,7 @@
 
         <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
             <!-- Navbar -->
-            <nav v-show="$router.path === '/' ? false : true"  class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true" style="display: none;">
+            <nav v-show="$route.path === '/' ? false : true"  class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur" data-scroll="true" style="display: none;">
               <div class="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -121,7 +121,8 @@
                 </div>
               </div>
             </nav>
-            <!-- End Navbar -->
+
+
             <div class="container-fluid py-4">
                 <router-view></router-view>
             </div>
