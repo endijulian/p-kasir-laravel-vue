@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\RolesController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\AuthController;
@@ -20,4 +21,8 @@ Route::group([
 });
 
 Route::apiResource('/users', UserController::class);
+Route::apiResource('/category', CategoryController::class);
+
+
+
 Route::get('roles', [RolesController::class, 'index'])->name('roles');
