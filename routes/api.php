@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\RolesController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -19,3 +20,4 @@ Route::group([
 });
 
 Route::apiResource('/users', UserController::class);
+Route::get('roles', [RolesController::class, 'index'])->name('roles');
