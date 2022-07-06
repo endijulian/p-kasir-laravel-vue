@@ -21,7 +21,8 @@
                             <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
                                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Role</th>
                                     <th class="text-secondary opacity-7"></th>
@@ -29,6 +30,11 @@
                             </thead>
                             <tbody>
                                 <tr v-for="(user, index) in users" :key="index.id">
+
+                                    <td>
+                                        <h6 class="mb-0 text-sm">{{ ++index }}</h6>
+                                    </td>
+
                                     <td>
                                         <div class="d-flex flex-column justify-content-center">
                                             <h6 class="mb-0 text-sm">{{ user.name }}</h6>

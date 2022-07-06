@@ -16,11 +16,11 @@
             <form @submit.prevent="submitCategory">
                 <div class="row">
                     <div class="col-md-6">
-                        <label class="form-label">Name</label>
+                        <label class="form-label">Category Name</label>
                         <div class="input-group input-group-outline mb-3">
                             <input type="text" class="form-control" v-model="form.category_name">
-                            <small class="text-danger" v-if="errors.category_name">{{ errors.category_name[0] }}</small>
                         </div>
+                        <small class="text-danger" v-if="errors.category_name">{{ errors.category_name[0] }}</small>
                     </div>
                 </div>
                 <div class="col-md-12 d-flex justify-content-center mt-5">

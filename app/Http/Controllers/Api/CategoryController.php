@@ -39,11 +39,11 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'category_name' => 'required',
+            'category_name' => 'required|unique:category',
         ]);
 
-        $category           = new Category;
-        $category->category_name   = $request->category_name;
+        $category                   = new Category;
+        $category->category_name    = $request->category_name;
         $category->save();
 
         return response()->json($category);
@@ -86,9 +86,10 @@ class CategoryController extends Controller
             'category_name' => 'required|unique:category,category_name,'.$id,
         ]);
 
-        $requestUpdate = $request->all();
+        $category                   = array();
+        $category['category_name']  = $request->category_name;
 
-        Category::where('id', $id)->update($requestUpdate);
+        Category::where('id', $id)->update($category);
     }
 
     /**

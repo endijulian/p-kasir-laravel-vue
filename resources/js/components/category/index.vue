@@ -21,26 +21,21 @@
                             <table class="table align-items-center mb-0">
                             <thead>
                                 <tr>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Role</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name Category</th>
                                     <th class="text-secondary opacity-7"></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="(categori, index) in category" :key="index.id">
+                                     <td>
+                                        <h6 class="mb-0 text-sm">{{ ++index }}</h6>
+                                    </td>
+
                                     <td>
                                         <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm">{{ categori.name }}</h6>
+                                            <h6 class="mb-0 text-sm">{{ categori.category_name }}</h6>
                                         </div>
-                                    </td>
-
-                                    <td>
-                                        <h6 class="mb-0 text-sm">{{ categori.email }}</h6>
-                                    </td>
-
-                                    <td class="align-middle text-center text-sm">
-                                        <span class="badge badge-sm bg-gradient-success">{{ categori.roles.name }}</span>
                                     </td>
 
                                     <td class="align-middle">
