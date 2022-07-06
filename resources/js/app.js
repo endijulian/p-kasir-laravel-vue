@@ -8,6 +8,10 @@ import loading from 'vuejs-loading-screen'
 Vue.use(VueRouter)
 Vue.use(loading)
 
+//Number format
+Vue.filter('format_number', function (value){
+    return parseInt(value).toLocaleString()
+})
 
 //Import User Class
 import User from './Helpers/User';

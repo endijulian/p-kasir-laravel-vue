@@ -8,10 +8,10 @@
                         <div class="bg-gradient-primary shadow-primary border-radius-lg pt-4 pb-3">
                             <div class="row">
                                 <div class="col-6">
-                                    <h6 class="text-white text-capitalize ps-3">Data User / Pengguna</h6>
+                                    <h6 class="text-white text-capitalize ps-3">Data Product</h6>
                                 </div>
                                 <div class="col-6 d-flex justify-content-end">
-                                    <router-link to="/storeuser" class="btn btn-info me-2">Add User</router-link>
+                                    <router-link to="/storeProduct" class="btn btn-info me-2">Add Product</router-link>
                                 </div>
                             </div>
                         </div>
@@ -22,14 +22,16 @@
                             <thead>
                                 <tr>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
-                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
-                                    <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Role</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Product Name</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Product Code</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Category</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Qty</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Price</th>
                                     <th class="text-secondary opacity-7"></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(user, index) in users" :key="index.id">
+                                <tr v-for="(prod, index) in product" :key="index.id">
 
                                     <td>
                                         <h6 class="mb-0 text-sm">{{ ++index }}</h6>
@@ -37,23 +39,30 @@
 
                                     <td>
                                         <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm">{{ user.name }}</h6>
+                                            <h6 class="mb-0 text-sm">{{ prod.produck_name }}</h6>
                                         </div>
                                     </td>
 
                                     <td>
-                                        <h6 class="mb-0 text-sm">{{ user.email }}</h6>
+                                        <h6 class="mb-0 text-sm">{{ prod.produck_code }}</h6>
                                     </td>
 
-                                    <td class="align-middle text-center text-sm">
-                                        <span v-if="user.roles_id == 1" class="badge badge-sm bg-gradient-success">{{ user.roles.name }}</span>
-                                        <span v-else class="badge badge-sm bg-gradient-warning">{{ user.roles.name }}</span>
+                                    <td>
+                                        <h6 class="mb-0 text-sm">{{ prod.category.category_name }}</h6>
+                                    </td>
+
+                                    <td>
+                                        <h6 class="mb-0 text-sm">{{ prod.qty }}</h6>
+                                    </td>
+
+                                    <td>
+                                        <h6 class="mb-0 text-sm">{{ prod.price | format_number }}</h6>
                                     </td>
 
                                     <td class="align-middle">
                                         <router-link
-                                        :to="{name: 'edituser',
-                                        params: {id: user.id},
+                                        :to="{name: 'editProduct',
+                                        params: {id: prod.id},
                                         }"
                                         class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                         Edit
@@ -81,24 +90,24 @@ export default {
     },
     data(){
         return{
-            users: [],
+            product: [],
             loading: false,
         };
     },
     methods:{
-        allUsers(){
+        allProduct(){
              this.$isLoading(true)
             axios
-            .get("/api/users/")
+            .get("/api/product/")
             .then(({data}) => {
-                this.users = data;
+                this.product = data;
                 this.$isLoading(false)
             })
             .catch();
         }
     },
     created(){
-        this.allUsers();
+        this.allProduct();
     }
 }
 </script>

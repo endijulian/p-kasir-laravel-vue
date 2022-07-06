@@ -40,7 +40,7 @@
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Role</label>
-                        <div class="input-group input-group-static mb-4">
+                        <div class="input-group input-group-outline mb-4">
                             <select class="form-control" id="exampleFormControlSelect1" v-model="form.roles_id">
                                 <option v-for="role in roles" :key="role.id" :value="role.id" class="mb-5">{{ role.name }}</option>
                             </select>

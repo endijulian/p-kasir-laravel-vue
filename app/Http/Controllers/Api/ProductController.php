@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::all();
+        $product    = Product::with('category')->get();
 
-        return response()->json($category);
+        return response()->json($product);
     }
 
     /**
@@ -39,14 +39,23 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'category_name' => 'required|unique:category',
+            'produck_name'  => 'required',
+            'produck_code'  => 'required|unique:product',
+            'category_id'   => 'required',
+            'qty'           => 'required|numeric',
+            'price'         => 'required|numeric',
         ]);
 
-        $category                   = new Category;
-        $category->category_name    = $request->category_name;
-        $category->save();
+        $data               = new Product;
+        $data->produck_name = $request->produck_name;
+        $data->produck_code = $request->produck_code;
+        $data->category_id  = $request->category_id;
+        $data->qty          = $request->qty;
+        $data->price        = $request->price;
 
-        return response()->json($category);
+        $data->save();
+
+        return response()->json($data);
     }
 
     /**
@@ -57,9 +66,9 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $category   = Category::where('id', $id)->first();
+        $product = Product::findOrFail($id);
 
-        return response()->json($category);
+        return response()->json($product);
     }
 
     /**
@@ -83,13 +92,21 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'category_name' => 'required|unique:category,category_name,' . $id,
+            'produck_name'  => 'required',
+            'produck_code'  => 'required|unique:product,produck_code,' . $id,
+            'category_id'   => 'required',
+            'qty'           => 'required|numeric',
+            'price'         => 'required|numeric',
         ]);
 
-        $category                   = array();
-        $category['category_name']  = $request->category_name;
+        $data                   = array();
+        $data['produck_name']   = $request->produck_name;
+        $data['produck_code']   = $request->produck_code;
+        $data['category_id']    = $request->category_id;
+        $data['qty']            = $request->qty;
+        $data['price']          = $request->price;
 
-        Category::where('id', $id)->update($category);
+        Product::where('id', $id)->update($data);
     }
 
     /**

@@ -16,6 +16,11 @@ let category        = require('./components/category/index.vue').default;
 let editCategory    = require('./components/category/edit.vue').default;
 let storeCategory   = require('./components/category/create.vue').default;
 
+//Component Product
+let product        = require('./components/product/index.vue').default;
+let editProduct    = require('./components/product/edit.vue').default;
+let storeProduct   = require('./components/product/create.vue').default;
+
 
 export const routes = [
     { path: '/',component: login, name: '/' },
@@ -32,4 +37,9 @@ export const routes = [
     { path: '/category', component: category, name: 'category' },
     { path: '/editCategory/:id', component: editCategory, name: 'editCategory' },
     { path: '/storeCategory', component: storeCategory, name: 'storeCategory' },
+
+     //Product Route
+     { path: '/product', component: product, name: 'product' },
+     { path: '/editProduct/:id', component: editProduct, name: 'editProduct' },
+     { path: '/storeProduct', component: storeProduct, name: 'storeProduct' },
   ]
