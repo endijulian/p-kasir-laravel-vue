@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductInOutTable extends Migration
+class CreateStockInProductTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateProductInOutTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_in_out', function (Blueprint $table) {
+        Schema::create('stock_in_product', function (Blueprint $table) {
             $table->id();
-            $table->integer('product_id');
+            $table->string('name');
             $table->integer('qty');
-            $table->integer('status_id');
             $table->timestamps();
         });
     }
@@ -29,6 +28,6 @@ class CreateProductInOutTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_in_out');
+        Schema::dropIfExists('stock_in_product');
     }
 }

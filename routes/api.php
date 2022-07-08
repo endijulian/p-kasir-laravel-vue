@@ -3,6 +3,8 @@
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\RolesController;
+use App\Http\Controllers\Api\StockInProductController;
+use App\Http\Controllers\Api\StockOutProductController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
@@ -24,6 +26,8 @@ Route::group([
 Route::apiResource('/users', UserController::class);
 Route::apiResource('/category', CategoryController::class);
 Route::apiResource('/product', ProductController::class);
+Route::apiResource('/barangMasuk', StockInProductController::class);
+Route::apiResource('/barangKeluar', StockOutProductController::class);
 
 
 

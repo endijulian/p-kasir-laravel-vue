@@ -22,6 +22,11 @@ let editProduct    = require('./components/product/edit.vue').default;
 let storeProduct   = require('./components/product/create.vue').default;
 
 
+//Component Product
+let barangMasuk        = require('./components/barangMasuk/index.vue').default;
+let editBarangMasuk    = require('./components/barangMasuk/edit.vue').default;
+let storeBarangMasuk   = require('./components/barangMasuk/create.vue').default;
+
 export const routes = [
     { path: '/',component: login, name: '/' },
     { path: '/logout',component: logout, name: 'logout' },
@@ -42,4 +47,9 @@ export const routes = [
      { path: '/product', component: product, name: 'product' },
      { path: '/editProduct/:id', component: editProduct, name: 'editProduct' },
      { path: '/storeProduct', component: storeProduct, name: 'storeProduct' },
+
+     //Product Route
+     { path: '/barangMasuk', component: barangMasuk, name: 'barangMasuk' },
+     { path: '/editBarangMasuk/:id', component: editBarangMasuk, name: 'editBarangMasuk' },
+     { path: '/storeBarangMasuk', component: storeBarangMasuk, name: 'storeBarangMasuk' },
   ]

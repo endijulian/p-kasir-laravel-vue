@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductInOut extends Model
+class ProductInStock extends Model
 {
     use HasFactory;
 
-    protected $table        = 'product_in_out';
-    protected $fillable     = ['product_id', 'qty', 'status_id'];
+    protected $table        = 'stock_in_product';
+    protected $fillable     = ['name', 'qty'];
 }
