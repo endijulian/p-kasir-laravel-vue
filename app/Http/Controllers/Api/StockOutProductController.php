@@ -16,7 +16,9 @@ class StockOutProductController extends Controller
      */
     public function index()
     {
-        $barangKeluar       = ProductOutStock::with('barangMasuk')->get();
+        $barangKeluar       = DB::table('stock_out_product')
+                                ->join('stock_in_product', 'stock_out_product.stock_in_produck_id', 'stock_in_product.id')
+                                ->select('stock_in_product.name as nameInBarang', 'stock_out_product.*')->get();
 
         return response()->json($barangKeluar);
     }
@@ -40,17 +42,18 @@ class StockOutProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'stock_in_product_id'   => 'required',
+            'stock_in_produck_id'   => 'required',
             'qty'                   => 'required|numeric'
         ]);
 
-        $addBarangKeluar                        = new ProductOutStock;
-        $addBarangKeluar->stock_in_product_id   = $request->stock_in_product_id;
-        $addBarangKeluar->qty                   = $request->qty;
-        $addBarangKeluar->save();
+        $addBarangKeluar                          = array();
+        $addBarangKeluar['stock_in_produck_id']   = $request->stock_in_produck_id;
+        $addBarangKeluar['qty']                   = $request->qty;
 
-        DB::table('stock_in_product')->where('id', $request->stock_in_product_id)
-                ->update(['qty' => DB::raw('qty -' . $request->stock_in_product_id)]);
+        DB::table('stock_out_product')->insert($addBarangKeluar);
+
+        DB::table('stock_in_product')->where('id', $request->stock_in_produck_id)
+                ->update(['qty' => DB::raw('qty -' . $request->qty)]);
 
         return response()->json($addBarangKeluar);
     }
@@ -63,7 +66,9 @@ class StockOutProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $show       = DB::table('stock_out_product')->where('id', $id)->first();
+
+        return response()->json($show);
     }
 
     /**

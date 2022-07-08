@@ -10,11 +10,11 @@ class ProductOutStock extends Model
     use HasFactory;
 
     protected $table        = 'stock_out_product';
-    protected $fillable     = ['stock_in_product_id', 'qty'];
+    protected $fillable     = ['stock_in_produck_id', 'qty'];
 
 
     public function barangMasuk()
     {
-        return $this->belongsTo('App\Models\ProductInStock', 'stock_in_product_id', 'id');
+        return $this->belongsTo('App\Models\ProductInStock', 'stock_in_produck_id', 'id');
     }
 }

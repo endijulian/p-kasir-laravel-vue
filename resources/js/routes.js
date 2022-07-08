@@ -22,10 +22,15 @@ let editProduct    = require('./components/product/edit.vue').default;
 let storeProduct   = require('./components/product/create.vue').default;
 
 
-//Component Product
+//Component Barang Masuk
 let barangMasuk        = require('./components/barangMasuk/index.vue').default;
 let editBarangMasuk    = require('./components/barangMasuk/edit.vue').default;
 let storeBarangMasuk   = require('./components/barangMasuk/create.vue').default;
+
+//Component Barang Masuk
+let barangKeluar        = require('./components/barangKeluar/index.vue').default;
+let editBarangKeluar    = require('./components/barangKeluar/edit.vue').default;
+let storeBarangKeluar   = require('./components/barangKeluar/create.vue').default;
 
 export const routes = [
     { path: '/',component: login, name: '/' },
@@ -48,8 +53,13 @@ export const routes = [
      { path: '/editProduct/:id', component: editProduct, name: 'editProduct' },
      { path: '/storeProduct', component: storeProduct, name: 'storeProduct' },
 
-     //Product Route
+     //Barang Masuk Route
      { path: '/barangMasuk', component: barangMasuk, name: 'barangMasuk' },
      { path: '/editBarangMasuk/:id', component: editBarangMasuk, name: 'editBarangMasuk' },
      { path: '/storeBarangMasuk', component: storeBarangMasuk, name: 'storeBarangMasuk' },
+
+     //Barang Keluar Route
+     { path: '/barangKeluar', component: barangKeluar, name: 'barangKeluar' },
+     { path: '/editBarangKeluar/:id', component: editBarangKeluar, name: 'editBarangKeluar' },
+     { path: '/storeBarangKeluar', component: storeBarangKeluar, name: 'storeBarangKeluar' },
   ]
