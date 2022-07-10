@@ -32,14 +32,13 @@
                         <div class="mb-3">
                                 <div class="mb-3">
                                     <label class="form-label">Qty</label>
-                                    <div class="input-group input-group-outline">
+                                    <div class="input-group input-group-outline mb-3">
                                         <input type="text" class="form-control" v-model="form.qty">
                                     </div>
                                     <small class="text-danger" v-if="errors.qty">{{ errors.qty[0] }}</small>
                                 </div>
-                                <small class="text-danger" v-if="errors.qty">{{ errors.qty[0] }}</small>
-                            </div>
                         </div>
+                    </div>
                 </div>
 
                 <div class="col-md-12 d-flex justify-content-center mt-5">
@@ -75,9 +74,15 @@ export default {
     methods: {
         submitBarangKeluar(){
             axios.post("/api/barangKeluar", this.form)
-            .then(() => {
-                this.$router.push({ name: 'barangKeluar' })
-                Notification.success();
+            .then((response) => {
+                console.log(response.data)
+
+                if (response.data.success) {
+                    this.$router.push({ name: 'barangKeluar' })
+                    Notification.success();
+                } else {
+                    Notification.StockNull();
+                }
             })
             .catch((error) => (this.errors = error.response.data.errors));
         },

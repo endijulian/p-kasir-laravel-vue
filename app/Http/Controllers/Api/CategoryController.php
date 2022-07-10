@@ -40,6 +40,9 @@ class CategoryController extends Controller
     {
         $request->validate([
             'category_name' => 'required|unique:category',
+        ],
+        [
+            'category_name.required' => 'Tidak Boleh Kosong!',
         ]);
 
         $category                   = new Category;
@@ -84,6 +87,9 @@ class CategoryController extends Controller
     {
         $request->validate([
             'category_name' => 'required|unique:category,category_name,' . $id,
+        ],
+        [
+            'category_name.required' => 'Tidak Boleh Kosong!',
         ]);
 
         $category                   = array();

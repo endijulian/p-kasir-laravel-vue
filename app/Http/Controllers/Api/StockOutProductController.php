@@ -43,19 +43,41 @@ class StockOutProductController extends Controller
     {
         $request->validate([
             'stock_in_produck_id'   => 'required',
-            'qty'                   => 'required|numeric'
+            'qty'                   => 'required|numeric|'
+        ],[
+            'stock_in_produck_id.required' => 'Tidak Boleh Kosong!',
+            'qty.required' => 'Tidak Boleh Kosong!',
+            'qty.numeric' => 'Harus berupa angka!',
         ]);
 
-        $addBarangKeluar                          = array();
-        $addBarangKeluar['stock_in_produck_id']   = $request->stock_in_produck_id;
-        $addBarangKeluar['qty']                   = $request->qty;
+        $stock_check = DB::table('stock_in_product')->where('id', $request->stock_in_produck_id)->first();
 
-        DB::table('stock_out_product')->insert($addBarangKeluar);
+        if ($stock_check->qty < $request->qty ) {
+            $success = false;
+            $message = 'Stock Kosong';
+        }else{
+            $addBarangKeluar                          = array();
+            $addBarangKeluar['stock_in_produck_id']   = $request->stock_in_produck_id;
+            $addBarangKeluar['qty']                   = $request->qty;
+            $addBarangKeluar['created_at']            = \Carbon\Carbon::now();
 
-        DB::table('stock_in_product')->where('id', $request->stock_in_produck_id)
-                ->update(['qty' => DB::raw('qty -' . $request->qty)]);
+            DB::table('stock_out_product')->insert($addBarangKeluar);
 
-        return response()->json($addBarangKeluar);
+            DB::table('stock_in_product')->where('id', $request->stock_in_produck_id)
+                    ->update(['qty' => DB::raw('qty -' . $request->qty)]);
+
+            $success = true;
+            $message = 'Berhasil Create Stock Out!';
+        }
+
+          // response
+          $response = [
+            'success' => $success,
+            'message' => $message,
+        ];
+        return response()->json($response);
+
+
     }
 
     /**

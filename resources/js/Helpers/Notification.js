@@ -63,6 +63,15 @@ class Notification{
         }).show();
     }
 
+    StockNull(){
+        new Noty({
+            type: 'warning',
+            layout: 'topRight',
+            text: 'Stock Kosong, atau tidak mencukupi !',
+            timeout: 1000,
+        }).show();
+    }
+
 }
 
 export default Notification = new Notification()

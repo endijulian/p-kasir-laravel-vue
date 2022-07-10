@@ -24,6 +24,7 @@
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">No</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Name</th>
                                     <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Qty</th>
+                                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Created</th>
                                     <th class="text-secondary opacity-7"></th>
                                 </tr>
                             </thead>
@@ -42,6 +43,10 @@
 
                                     <td>
                                         <h6 class="mb-0 text-sm">{{ out.qty }}</h6>
+                                    </td>
+
+                                    <td>
+                                        <h6 class="mb-0 text-sm">{{ format_date(out.created_at) }}</h6>
                                     </td>
 
                                     <td class="align-middle">
@@ -67,6 +72,9 @@
 
 
 <script>
+
+import moment from 'moment'
+
 export default {
     created(){
         if(!User.loggedIn()){
@@ -89,7 +97,12 @@ export default {
                 this.$isLoading(false)
             })
             .catch();
-        }
+        },
+        format_date(value){
+         if (value) {
+           return moment(String(value)).format('DD MM YYYY')
+          }
+      },
     },
     created(){
         this.allBarangKeluar();

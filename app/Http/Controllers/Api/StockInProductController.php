@@ -42,6 +42,11 @@ class StockInProductController extends Controller
         $request->validate([
             'name' => 'required',
             'qty'  => 'required|numeric'
+        ]
+        ,[
+            'name.required' => 'Tidak Boleh Kosong!',
+            'qty.required' => 'Tidak Boleh Kosong!',
+            'qty.numeric' => 'Harus berupa angka!',
         ]);
 
         $barangMasuk            = new ProductInStock;
@@ -88,6 +93,10 @@ class StockInProductController extends Controller
         $request->validate([
             'name'  => 'required',
             'qty'   => 'required|numeric'
+        ],[
+            'name.required' => 'Tidak Boleh Kosong!',
+            'qty.required' => 'Tidak Boleh Kosong!',
+            'qty.numeric' => 'Harus berupa angka!',
         ]);
 
         $update         = array();
