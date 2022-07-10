@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -15,7 +16,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $product    = Product::with('category')->get();
+        // $product    = Product::with('category')->get();
+        $product    = DB::table('product')
+                        ->join('category', 'product.category_id', 'category.id')
+                        ->select('product.*', 'category.category_name')
+                        ->get();
 
         return response()->json($product);
     }
@@ -117,6 +122,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = DB::table('product')->where('id', $id)->delete();
+
+        return response()->json($product);
     }
 }

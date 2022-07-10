@@ -50,13 +50,11 @@
                                     </td>
 
                                     <td class="align-middle">
-                                        <router-link
-                                        :to="{name: 'editBarangKeluar',
-                                        params: {id: out.id},
-                                        }"
-                                        class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
-                                        Edit
-                                        </router-link>
+                                        <a href="#"
+                                        @click="deleteOut(out.id)"
+                                        class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Hapus">
+                                        Hapus
+                                        </a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -98,11 +96,36 @@ export default {
             })
             .catch();
         },
-        format_date(value){
-         if (value) {
-           return moment(String(value)).format('DD MM YYYY')
-          }
-      },
+            format_date(value){
+            if (value) {
+            return moment(String(value)).format('DD MM YYYY')
+            }
+        },
+        deleteOut(id) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            }).then((result) => {
+                if (result.value) {
+                axios
+                    .delete("/api/barangKeluar/" + id)
+                    .then(() => {
+                        this.barangKeluar = this.barangKeluar.filter((barangKeluar) => {
+                            return barangKeluar.id != id;
+                        });
+                    })
+                    .catch(() => {
+                        this.$router.push({ name: "barangKeluar" });
+                    });
+                    Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                }
+            });
+        },
     },
     created(){
         this.allBarangKeluar();

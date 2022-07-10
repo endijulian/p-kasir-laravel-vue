@@ -80,13 +80,21 @@ export default {
         axios.get("/api/barangMasuk/").then(({ data }) => (this.barangMasuk = data));
     },
     methods: {
-        productUpdate(){
+        submitBarangKeluar(){
              let id = this.$route.params.id;
              axios
                 .patch("/api/barangKeluar/" + id, this.form)
                 .then(() => {
-                this.$router.push({ name: "barangKeluar" });
-                Notification.success();
+                // this.$router.push({ name: "barangKeluar" });
+                // Notification.success();
+                    console.log(response.data)
+
+                    if (response.data.success) {
+                        this.$router.push({ name: 'barangKeluar' })
+                        Notification.success();
+                    } else {
+                        Notification.StockNull();
+                    }
                 })
                 .catch((error) => (this.errors = error.response.data.errors));
         },

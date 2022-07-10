@@ -48,7 +48,7 @@
                                     </td>
 
                                     <td>
-                                        <h6 class="mb-0 text-sm">{{ prod.category.category_name }}</h6>
+                                        <h6 class="mb-0 text-sm">{{ prod.category_name }}</h6>
                                     </td>
 
                                     <td>
@@ -67,6 +67,14 @@
                                         class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Edit user">
                                         Edit
                                         </router-link>
+
+                                        |
+
+                                        <a href="#"
+                                        @click="deleteProduct(prod.id)"
+                                        class="text-secondary font-weight-bold text-xs" data-toggle="tooltip" data-original-title="Hapus">
+                                        Hapus
+                                        </a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -96,7 +104,7 @@ export default {
     },
     methods:{
         allProduct(){
-             this.$isLoading(true)
+            this.$isLoading(true)
             axios
             .get("/api/product/")
             .then(({data}) => {
@@ -104,7 +112,32 @@ export default {
                 this.$isLoading(false)
             })
             .catch();
-        }
+        },
+        deleteProduct(id) {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+            }).then((result) => {
+                if (result.value) {
+                axios
+                    .delete("/api/product/" + id)
+                    .then(() => {
+                        this.product = this.product.filter((product) => {
+                            return product.id != id;
+                        });
+                    })
+                    .catch(() => {
+                        this.$router.push({ name: "product" });
+                    });
+                Swal.fire("Deleted!", "Your file has been deleted.", "success");
+                }
+            });
+        },
     },
     created(){
         this.allProduct();

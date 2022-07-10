@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\ProductInStock;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class StockInProductController extends Controller
 {
     /**
@@ -116,6 +116,6 @@ class StockInProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('stock_in_product')->where('id', $id)->delete();
     }
 }

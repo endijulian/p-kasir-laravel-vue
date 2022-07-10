@@ -113,7 +113,7 @@ class StockOutProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**
@@ -124,6 +124,6 @@ class StockOutProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        DB::table('stock_out_product')->where('id', $id)->delete();
     }
 }

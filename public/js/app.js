@@ -5591,16 +5591,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     return _this.barangMasuk = data;
   });
 }), _defineProperty(_created$data$created, "methods", {
-  productUpdate: function productUpdate() {
+  submitBarangKeluar: function submitBarangKeluar() {
     var _this2 = this;
 
     var id = this.$route.params.id;
     axios.patch("/api/barangKeluar/" + id, this.form).then(function () {
-      _this2.$router.push({
-        name: "barangKeluar"
-      });
+      // this.$router.push({ name: "barangKeluar" });
+      // Notification.success();
+      console.log(response.data);
 
-      Notification.success();
+      if (response.data.success) {
+        _this2.$router.push({
+          name: 'barangKeluar'
+        });
+
+        Notification.success();
+      } else {
+        Notification.StockNull();
+      }
     })["catch"](function (error) {
       return _this2.errors = error.response.data.errors;
     });
@@ -5624,8 +5632,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_0__);
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-//
-//
 //
 //
 //
@@ -5728,6 +5734,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       if (value) {
         return moment__WEBPACK_IMPORTED_MODULE_0___default()(String(value)).format('DD MM YYYY');
       }
+    },
+    deleteOut: function deleteOut(id) {
+      var _this2 = this;
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          axios["delete"]("/api/barangKeluar/" + id).then(function () {
+            _this2.barangKeluar = _this2.barangKeluar.filter(function (barangKeluar) {
+              return barangKeluar.id != id;
+            });
+          })["catch"](function () {
+            _this2.$router.push({
+              name: "barangKeluar"
+            });
+          });
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        }
+      });
     }
   }
 }, "created", function created() {
@@ -6011,6 +6043,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_defineProperty({
   created: function created() {
     if (!User.loggedIn()) {
@@ -6036,6 +6076,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         _this.$isLoading(false);
       })["catch"]();
+    },
+    deleteStock: function deleteStock(id) {
+      var _this2 = this;
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          axios["delete"]("/api/barangMasuk/" + id).then(function () {
+            _this2.barangMasuk = _this2.barangMasuk.filter(function (barangMasuk) {
+              return barangMasuk.id != id;
+            });
+          })["catch"](function () {
+            _this2.$router.push({
+              name: "barangMasuk"
+            });
+          });
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        }
+      });
     }
   }
 }, "created", function created() {
@@ -6296,6 +6362,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_defineProperty({
   created: function created() {
     if (!User.loggedIn()) {
@@ -6321,6 +6395,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         _this.$isLoading(false);
       })["catch"]();
+    },
+    deleteCategory: function deleteCategory(id) {
+      var _this2 = this;
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          axios["delete"]("/api/category/" + id).then(function () {
+            _this2.category = _this2.category.filter(function (category) {
+              return category.id != id;
+            });
+          })["catch"](function () {
+            _this2.$router.push({
+              name: "category"
+            });
+          });
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        }
+      });
     }
   }
 }, "created", function created() {
@@ -6806,6 +6906,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_defineProperty({
   created: function created() {
     if (!User.loggedIn()) {
@@ -6831,6 +6939,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         _this.$isLoading(false);
       })["catch"]();
+    },
+    deleteProduct: function deleteProduct(id) {
+      var _this2 = this;
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          axios["delete"]("/api/product/" + id).then(function () {
+            _this2.product = _this2.product.filter(function (product) {
+              return product.id != id;
+            });
+          })["catch"](function () {
+            _this2.$router.push({
+              name: "product"
+            });
+          });
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        }
+      });
     }
   }
 }, "created", function created() {
@@ -7173,6 +7307,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_defineProperty({
   created: function created() {
     if (!User.loggedIn()) {
@@ -7198,6 +7338,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
         _this.$isLoading(false);
       })["catch"]();
+    },
+    deleteUser: function deleteUser(id) {
+      var _this2 = this;
+
+      Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(function (result) {
+        if (result.value) {
+          axios["delete"]("/api/users/" + id).then(function () {
+            _this2.users = _this2.users.filter(function (users) {
+              return users.id != id;
+            });
+          })["catch"](function () {
+            _this2.$router.push({
+              name: "users"
+            });
+          });
+          Swal.fire("Deleted!", "Your file has been deleted.", "success");
+        }
+      });
     }
   }
 }, "created", function created() {
@@ -60882,33 +61048,30 @@ var render = function () {
                         ]),
                       ]),
                       _vm._v(" "),
-                      _c(
-                        "td",
-                        { staticClass: "align-middle" },
-                        [
-                          _c(
-                            "router-link",
-                            {
-                              staticClass:
-                                "text-secondary font-weight-bold text-xs",
-                              attrs: {
-                                to: {
-                                  name: "editBarangKeluar",
-                                  params: { id: out.id },
-                                },
-                                "data-toggle": "tooltip",
-                                "data-original-title": "Edit user",
+                      _c("td", { staticClass: "align-middle" }, [
+                        _c(
+                          "a",
+                          {
+                            staticClass:
+                              "text-secondary font-weight-bold text-xs",
+                            attrs: {
+                              href: "#",
+                              "data-toggle": "tooltip",
+                              "data-original-title": "Hapus",
+                            },
+                            on: {
+                              click: function ($event) {
+                                return _vm.deleteOut(out.id)
                               },
                             },
-                            [
-                              _vm._v(
-                                "\n                                        Edit\n                                        "
-                              ),
-                            ]
-                          ),
-                        ],
-                        1
-                      ),
+                          },
+                          [
+                            _vm._v(
+                              "\n                                        Hapus\n                                        "
+                            ),
+                          ]
+                        ),
+                      ]),
                     ])
                   }),
                   0
@@ -61444,6 +61607,31 @@ var render = function () {
                               ),
                             ]
                           ),
+                          _vm._v(
+                            "\n\n                                        |\n\n                                        "
+                          ),
+                          _c(
+                            "a",
+                            {
+                              staticClass:
+                                "text-secondary font-weight-bold text-xs",
+                              attrs: {
+                                href: "#",
+                                "data-toggle": "tooltip",
+                                "data-original-title": "Hapus",
+                              },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.deleteStock(barangIn.id)
+                                },
+                              },
+                            },
+                            [
+                              _vm._v(
+                                "\n                                        Hapus\n                                        "
+                              ),
+                            ]
+                          ),
                         ],
                         1
                       ),
@@ -61883,6 +62071,31 @@ var render = function () {
                             [
                               _vm._v(
                                 "\n                                        Edit\n                                        "
+                              ),
+                            ]
+                          ),
+                          _vm._v(
+                            "\n\n                                        |\n\n                                        "
+                          ),
+                          _c(
+                            "a",
+                            {
+                              staticClass:
+                                "text-secondary font-weight-bold text-xs",
+                              attrs: {
+                                href: "#",
+                                "data-toggle": "tooltip",
+                                "data-original-title": "Hapus",
+                              },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.deleteCategory(categori.id)
+                                },
+                              },
+                            },
+                            [
+                              _vm._v(
+                                "\n                                        Hapus\n                                        "
                               ),
                             ]
                           ),
@@ -62833,7 +63046,7 @@ var render = function () {
                       _vm._v(" "),
                       _c("td", [
                         _c("h6", { staticClass: "mb-0 text-sm" }, [
-                          _vm._v(_vm._s(prod.category.category_name)),
+                          _vm._v(_vm._s(prod.category_name)),
                         ]),
                       ]),
                       _vm._v(" "),
@@ -62870,6 +63083,31 @@ var render = function () {
                             [
                               _vm._v(
                                 "\n                                        Edit\n                                        "
+                              ),
+                            ]
+                          ),
+                          _vm._v(
+                            "\n\n                                        |\n\n                                        "
+                          ),
+                          _c(
+                            "a",
+                            {
+                              staticClass:
+                                "text-secondary font-weight-bold text-xs",
+                              attrs: {
+                                href: "#",
+                                "data-toggle": "tooltip",
+                                "data-original-title": "Hapus",
+                              },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.deleteProduct(prod.id)
+                                },
+                              },
+                            },
+                            [
+                              _vm._v(
+                                "\n                                        Hapus\n                                        "
                               ),
                             ]
                           ),
@@ -63635,6 +63873,31 @@ var render = function () {
                             [
                               _vm._v(
                                 "\n                                        Edit\n                                        "
+                              ),
+                            ]
+                          ),
+                          _vm._v(
+                            "\n                                        |\n                                        "
+                          ),
+                          _c(
+                            "a",
+                            {
+                              staticClass:
+                                "text-secondary font-weight-bold text-xs",
+                              attrs: {
+                                href: "#",
+                                "data-toggle": "tooltip",
+                                "data-original-title": "Hapus",
+                              },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.deleteUser(user.id)
+                                },
+                              },
+                            },
+                            [
+                              _vm._v(
+                                "\n                                        Hapus\n                                        "
                               ),
                             ]
                           ),
