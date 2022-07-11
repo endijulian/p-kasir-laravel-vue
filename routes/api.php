@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\RolesController;
@@ -32,3 +33,10 @@ Route::apiResource('/barangKeluar', StockOutProductController::class);
 
 
 Route::get('roles', [RolesController::class, 'index'])->name('roles');
+
+Route::get('addToCart/{id}', [CartController::class, 'AddToCart'])->name('AddToCart');
+Route::get('cart/product', [CartController::class, 'CartProduct'])->name('CartProduct');
+
+
+Route::get('increment/{id}', [CartController::class, 'increment'])->name('increment');
+Route::get('decrement/{id}', [CartController::class, 'decrement'])->name('decrement');

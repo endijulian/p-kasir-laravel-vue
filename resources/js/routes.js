@@ -32,6 +32,9 @@ let barangKeluar        = require('./components/barangKeluar/index.vue').default
 let editBarangKeluar    = require('./components/barangKeluar/edit.vue').default;
 let storeBarangKeluar   = require('./components/barangKeluar/create.vue').default;
 
+//Component Order Menu
+let orderMenu        = require('./components/orderMenu/index.vue').default;
+
 export const routes = [
     { path: '/',component: login, name: '/' },
     { path: '/logout',component: logout, name: 'logout' },
@@ -62,4 +65,7 @@ export const routes = [
      { path: '/barangKeluar', component: barangKeluar, name: 'barangKeluar' },
      { path: '/editBarangKeluar/:id', component: editBarangKeluar, name: 'editBarangKeluar' },
      { path: '/storeBarangKeluar', component: storeBarangKeluar, name: 'storeBarangKeluar' },
+
+     //Barang Keluar Route
+     { path: '/orderMenu', component: orderMenu, name: 'orderMenu' },
   ]

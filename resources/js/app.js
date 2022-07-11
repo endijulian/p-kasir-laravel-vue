@@ -13,6 +13,9 @@ Vue.filter('format_number', function (value){
     return parseInt(value).toLocaleString()
 })
 
+//Window Reload
+window.Reload = new Vue();
+
 //Import User Class
 import User from './Helpers/User';
 window.User = User;
