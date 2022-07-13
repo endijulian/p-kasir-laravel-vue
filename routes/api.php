@@ -40,3 +40,5 @@ Route::get('cart/product', [CartController::class, 'CartProduct'])->name('CartPr
 
 Route::get('increment/{id}', [CartController::class, 'increment'])->name('increment');
 Route::get('decrement/{id}', [CartController::class, 'decrement'])->name('decrement');
+Route::get('remove/cart/{id}', [CartController::class, 'RemoveCart'])->name('RemoveCart');
+Route::post('/orderdone', [CartController::class, 'OrderDone'])->name('OrderDone');

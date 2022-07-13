@@ -3,7 +3,7 @@
 
     <div class="row">
 
-        <div class="col-xl-12 col-lg-12">
+        <div v-if="carts.length > 0" class="col-xl-12 col-lg-12">
           <div class="card mb-4">
             <div class="card-body">
               <div class="table-responsive" style="font-size: 12px">
@@ -39,21 +39,21 @@
                           -
                         </button>
                       </td>
-                      <td>{{ cart.product_price }}</td>
-                      <td>{{ cart.sub_total }}</td>
+                      <td>Rp. {{ cart.product_price | format_number }}</td>
+                      <td>Rp. {{ cart.sub_total | format_number }}</td>
                       <td>
-                        <!-- <a
+                        <a
                           @click="removeItem(cart.id)"
-                          class="btn btn-sm btn-primary text-white"
+                          class="btn btn-sm btn-primary text-white mt-3"
                           >X</a
-                        > -->
+                        >
                       </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
-            <!-- <div class="card-footer">
+            <div class="card-footer">
               <ul class="list-group">
                 <li
                   class="
@@ -65,6 +65,7 @@
                 >
                   Total Quantity : <strong>{{ qty }}</strong>
                 </li>
+                <br>
                 <li
                   class="
                     list-group-item
@@ -73,68 +74,29 @@
                     align-items-center
                   "
                 >
-                  Sub Total : <strong>{{ subTotal }} $</strong>
-                </li>
-                <li
-                  class="
-                    list-group-item
-                    d-flex
-                    justify-content-between
-                    align-items-center
-                  "
-                >
-                  Vat : <strong>{{ vats.vat }} %</strong>
-                </li>
-                <li
-                  class="
-                    list-group-item
-                    d-flex
-                    justify-content-between
-                    align-items-center
-                  "
-                >
-                  Total :
-                  <strong
-                    >{{ (subTotal * vats.vat) / 100 + subTotal }} $</strong
-                  >
+                  Total : <strong>Rp. {{ subTotal | format_number }}</strong>
                 </li>
               </ul>
               <br />
               <form action="" @submit.prevent="orderDone">
                 <label for="">Customer Name</label>
-                <select class="form-control" v-model="customer_id">
-                  <option
-                    :value="customer.id"
-                    v-for="customer in customers"
-                    :key="customer.id"
-                  >
-                    {{ customer.name }}
-                  </option>
-                </select>
-                <label for="">Pay</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  required
-                  v-model="pay"
-                />
-                <label for="">Due</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  required
-                  v-model="due"
-                />
-                <label for="">Pay By</label>
-                <select class="form-control" v-model="payby">
-                  <option value="HandCash">Hand Cash</option>
-                  <option value="Cheaque">Cheaque</option>
-                  <option value="GiftCard">Gift Card</option>
-                </select>
+                <div class="input-group input-group-outline" style="width: 500px;">
+                    <input type="text" class="form-control" required v-model="customer_name">
+                </div>
+                <br />
+                <label for="">Bayar</label>
+                <div class="input-group input-group-outline" style="width: 500px;">
+                    <input type="number" class="form-control" required v-model="pay">
+                </div>
+                <br />
+                <label for="">Kembali</label>
+                <div class="input-group input-group-outline" style="width: 500px;">
+                    <input type="number" class="form-control" required v-model="change">
+                </div>
                 <br />
                 <button type="submit" class="btn btn-success">Submit</button>
               </form>
-            </div> -->
+            </div>
           </div>
         </div>
 
@@ -156,7 +118,7 @@
                 </div>
                 <div class="card-body pt-0 p-3 text-center">
                     <h6 class="text-center mb-0">{{ product.produck_name }}</h6>
-                    <h5 class="mb-0">{{ product.price | format_number }}</h5>
+                    <h5 class="mb-0">Rp. {{ product.price | format_number }}</h5>
                     <hr class="horizontal dark my-3">
                     <button  @click.prevent="AddToCart(product.id)" class="btn btn-sm btn-success">Tambah</button>
                 </div>
@@ -183,6 +145,9 @@ export default {
     },
     data(){
         return{
+            customer_name: "",
+            pay: "",
+            change: "",
             products: [],
             searchTerm: "",
             carts: [],
@@ -195,12 +160,32 @@ export default {
                 return product.produck_name.toLowerCase().match(this.searchTerm.toLowerCase());
             });
         },
+        qty() {
+            let sum = 0;
+            for (let i = 0; i < this.carts.length; i++) {
+                sum += parseFloat(this.carts[i].product_quantity);
+            }
+            return sum;
+        },
+        subTotal() {
+            let sum = 0;
+            for (let i = 0; i < this.carts.length; i++) {
+                sum +=
+                parseFloat(this.carts[i].product_quantity) *
+                parseFloat(this.carts[i].product_price);
+            }
+            return sum;
+        },
     },
     methods:{
         allProduct() {
+        this.$isLoading(true)
         axios
             .get("/api/product/")
-            .then(({ data }) => (this.products = data))
+            .then(({ data }) => (
+                this.products = data,
+                this.$isLoading(false)
+            ))
             .catch();
         },
         AddToCart(id) {
@@ -228,13 +213,37 @@ export default {
             .catch();
         },
         decrement(id) {
-        axios
-            .get("/api/decrement/" + id)
-            .then(() => {
-            Reload.$emit("AfterAdd");
-                Notification.success();
-            })
-            .catch();
+            axios
+                .get("/api/decrement/" + id)
+                .then(() => {
+                Reload.$emit("AfterAdd");
+                    Notification.success();
+                })
+                .catch();
+            },
+            removeItem(id) {
+                axios
+                .get("/api/remove/cart/" + id)
+                .then(() => {
+                    Reload.$emit("AfterAdd");
+                    Notification.cart_delete();
+                })
+                .catch();
+            },
+            orderDone() {
+                // let total = this.subTotal;
+                var data = {
+                    qty: this.qty,
+                    customer_name: this.customer_name,
+                    pay: this.pay,
+                    change: this.this.change,
+                    total: this.subTotal,
+                };
+
+                axios.post("/api/orderdone", data).then(() => {
+                    Reload.$emit("AfterAdd");
+                    Notification.success();
+                });
         },
     }
 }

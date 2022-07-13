@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class CartController extends Controller
@@ -61,6 +63,63 @@ class CartController extends Controller
         DB::table('pos')->where('id', $id)->update(['sub_total' => $subtotal]);
 
         return response()->json('Done');
+    }
+
+    public function RemoveCart($id)
+    {
+        DB::table('pos')->where('id', $id)->delete();
+
+        return response()->json('Done Deleted!');
+    }
+
+    public function OrderDone(Request $request)
+    {
+
+        $request->validate([
+            'customer_name' => 'required'
+        ]);
+
+        //get last record
+        $record = Order::latest()->first();
+        $expNum = explode('-', $record->invoice ?? '');
+
+        //check first day in a year
+        if ( date('l',strtotime(date('Y-01-01'))) ){
+            $nextInvoiceNumber = date('Y').'-0001';
+        } else {
+            //increase 1 with last invoice number
+            $nextInvoiceNumber = $expNum[0].'-'. $expNum[1]+1;
+        }
+
+        $data   = array();
+        $data['customer_name']  = $request->customer_name;
+        $data['qty']            = $request->qty;
+        $data['total']          = $request->total;
+        $data['invoice']        = $nextInvoiceNumber;
+        $data['pay']            = $request->pay;
+        $data['change']         = $request->change;
+        $data['created_at']     = date('Y-m-d H:i:s');
+
+        $order_id   = DB::table('orders')->insertGetId($data);
+        $contents   = DB::table('pos')->get();
+        $odata      = array();
+
+        foreach ($contents as $content) {
+            $odata['order_id']      = $order_id;
+            $odata['product_id']    = $content->product_id;
+            $odata['quantity']      = $content->product_quantity;
+            $odata['price']         = $content->product_price;
+            $odata['total']         = $content->sub_total;
+            $odata['created_at']    = date('Y-m-d H:i:s');
+
+            DB::table('order_details')->insert($odata);
+
+            // DB::table('products')->where('id', $content->product_id)
+            //     ->update(['product_quantity' => DB::raw('product_quantity -' . $content->product_quantity)]);
+        }
+
+        DB::table('pos')->delete();
+
     }
 
 
