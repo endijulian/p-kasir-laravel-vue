@@ -112,9 +112,9 @@
         <div class="col-md-3 col-3" v-for="(product, index) in filterSearch" :key="index.id">
             <div class="card">
                 <div class="card-header mx-4 p-3 text-center">
-                    <div class="icon icon-shape icon-lg bg-gradient-gray shadow text-center border-radius-lg mt-2">
-                        <img :src="image_src" alt="" width="50" height="50">
-                    </div>
+                    <!-- <div class="icon icon-shape icon-lg bg-gradient-gray shadow text-center border-radius-lg mt-2"> -->
+                        <img :src="image_src" alt="" width="150" height="150">
+                    <!-- </div> -->
                 </div>
                 <div class="card-body pt-0 p-3 text-center">
                     <h6 class="text-center mb-0">{{ product.produck_name }}</h6>
@@ -151,7 +151,7 @@ export default {
             products: [],
             searchTerm: "",
             carts: [],
-            image_src: '/imgKasir/mastercard.png',
+            image_src: '/imgKasir/logo.jpeg',
         }
     },
     computed:{
@@ -236,7 +236,7 @@ export default {
                     qty: this.qty,
                     customer_name: this.customer_name,
                     pay: this.pay,
-                    change: this.this.change,
+                    change: this.change,
                     total: this.subTotal,
                 };
 

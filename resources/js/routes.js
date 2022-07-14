@@ -35,6 +35,10 @@ let storeBarangKeluar   = require('./components/barangKeluar/create.vue').defaul
 //Component Order Menu
 let orderMenu        = require('./components/orderMenu/index.vue').default;
 
+//Component Transaksi
+let transaksi        = require('./components/transaksi/index.vue').default;
+let detailTransaksi        = require('./components/transaksi/detail.vue').default;
+
 export const routes = [
     { path: '/',component: login, name: '/' },
     { path: '/logout',component: logout, name: 'logout' },
@@ -68,4 +72,8 @@ export const routes = [
 
      //Barang Keluar Route
      { path: '/orderMenu', component: orderMenu, name: 'orderMenu' },
+
+      //Barang Keluar Route
+      { path: '/transaksi', component: transaksi, name: 'transaksi' },
+      { path: '/detailTransaksi/:id', component: detailTransaksi, name: 'detailTransaksi' },
   ]

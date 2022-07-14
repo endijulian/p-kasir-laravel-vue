@@ -4,9 +4,15 @@ require('./bootstrap');
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import loading from 'vuejs-loading-screen'
+import { PdfViewerPlugin } from '@syncfusion/ej2-vue-pdfviewer';
 
 Vue.use(VueRouter)
 Vue.use(loading)
+
+
+// PDF print
+Vue.use(PdfViewerPlugin);
+
 
 //Number format
 Vue.filter('format_number', function (value){

@@ -79,23 +79,12 @@ class CartController extends Controller
             'customer_name' => 'required'
         ]);
 
-        //get last record
-        $record = Order::latest()->first();
-        $expNum = explode('-', $record->invoice ?? '');
-
-        //check first day in a year
-        if ( date('l',strtotime(date('Y-01-01'))) ){
-            $nextInvoiceNumber = date('Y').'-0001';
-        } else {
-            //increase 1 with last invoice number
-            $nextInvoiceNumber = $expNum[0].'-'. $expNum[1]+1;
-        }
 
         $data   = array();
         $data['customer_name']  = $request->customer_name;
         $data['qty']            = $request->qty;
         $data['total']          = $request->total;
-        $data['invoice']        = $nextInvoiceNumber;
+        $data['invoice']        = null;
         $data['pay']            = $request->pay;
         $data['change']         = $request->change;
         $data['created_at']     = date('Y-m-d H:i:s');
