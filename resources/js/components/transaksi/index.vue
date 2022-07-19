@@ -3,8 +3,25 @@
 
     <div class="row">
 
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body pb-2">
+                <div class="row">
+                    <div class="col-6">
+                        <h6 class="text-capitalize ps-3">Transaksi</h6>
+                    </div>
+                    <div class="col-6 d-flex justify-content-end">
+                        <div class="input-group input-group-outline mb-3">
+                            <input type="text" class="form-control" v-model="searchTransaksi"  placeholder="Search customer name.... ">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
         <div  class="col-xl-12 col-lg-12">
-          <div class="card mb-4">
+          <div class="card mb-4 my-4">
             <div class="card-body">
               <div class="table-responsive" style="font-size: 12px">
                 <table class="table align-items-center table-flush">
@@ -21,7 +38,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr v-for="(order, index) in orders" :key="index.id">
+                    <tr v-for="(order, index) in filterSearch" :key="index.id">
                         <td>{{ ++index }}</td>
                         <td>{{ order.customer_name }}</td>
                         <td>{{ order.qty }}</td>
@@ -78,6 +95,7 @@ export default {
     data(){
         return{
             orders: [],
+            searchTransaksi: "",
             image_src: '/imgKasir/mastercard.png',
         }
     },
@@ -129,6 +147,13 @@ export default {
             if (value) {
             return moment(String(value)).format('DD MM YYYY')
             }
+        },
+    },
+    computed:{
+        filterSearch() {
+            return this.orders.filter((order) => {
+                return order.customer_name.toLowerCase().match(this.searchTransaksi.toLowerCase());
+            });
         },
     }
 }

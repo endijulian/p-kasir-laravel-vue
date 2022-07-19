@@ -11,7 +11,10 @@
                             <h6 class=" text-capitalize ps-3">Category</h6>
                         </div>
                         <div class="col-6 d-flex justify-content-end">
-                            <router-link to="/storeCategory" class="btn btn-info me-2">Add Category</router-link>
+                             <div class="input-group input-group-outline p-2" style="width: 400px;">
+                                <input type="text" class="form-control" v-model="searchCategory" placeholder="Search category name..... ">
+                            </div>
+                            <router-link to="/storeCategory" class="btn btn-info mt-2 me-2">Add Category</router-link>
                         </div>
                     </div>
                 </div>
@@ -32,7 +35,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(categori, index) in category" :key="index.id">
+                                <tr v-for="(categori, index) in filterSearch" :key="index.id">
                                      <td>
                                         <h6 class="mb-0 text-sm">{{ ++index }}</h6>
                                     </td>
@@ -83,6 +86,7 @@ export default {
     data(){
         return{
             category: [],
+            searchCategory: "",
             loading: false,
         };
     },
@@ -122,6 +126,13 @@ export default {
                 }
             });
         },
+    },
+    computed: {
+        filterSearch(){
+            return this.category.filter((categori) => {
+                return categori.category_name.toLowerCase().match(this.searchCategory.toLowerCase());
+            })
+        }
     },
     created(){
         this.allCategory();

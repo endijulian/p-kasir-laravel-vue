@@ -102,8 +102,8 @@
 
         <div class="col-xl-12 col-lg-12">
             <div class="card mb-5">
-                <label class="form-label mt-2"><h6>Cari Menu Pesanan</h6></label>
-                <div class="input-group input-group-outline mb-3">
+                <label class="form-label mt-2 p-2"><h6>Cari Menu Pesanan</h6></label>
+                <div class="input-group input-group-outline mb-3 p-2">
                     <input type="text" class="form-control" v-model="searchTerm" placeholder="Search menu .... ">
                 </div>
             </div>

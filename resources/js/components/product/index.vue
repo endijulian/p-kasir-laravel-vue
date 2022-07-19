@@ -11,7 +11,10 @@
                                 <h6 class="text-capitalize ps-3">Data Product</h6>
                             </div>
                             <div class="col-6 d-flex justify-content-end">
-                                <router-link to="/storeProduct" class="btn btn-info me-2">Add Product</router-link>
+                                <div class="input-group input-group-outline p-2" style="width: 400px;">
+                                    <input type="text" class="form-control" v-model="searchProduct" placeholder="Search product...... ">
+                                </div>
+                                <router-link to="/storeProduct" class="btn btn-info mt-2 me-2">Add Product</router-link>
                             </div>
                         </div>
                     </div>
@@ -36,7 +39,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(prod, index) in product" :key="index.id">
+                                <tr v-for="(prod, index) in filterSearch" :key="index.id">
 
                                     <td>
                                         <h6 class="mb-0 text-sm">{{ ++index }}</h6>
@@ -104,6 +107,7 @@ export default {
     data(){
         return{
             product: [],
+            searchProduct: "",
             loading: false,
         };
     },
@@ -143,6 +147,13 @@ export default {
                 }
             });
         },
+    },
+    computed: {
+        filterSearch(){
+            return this.product.filter((prod) => {
+                return prod.produck_name.toLowerCase().match(this.searchProduct.toLowerCase());
+            })
+        }
     },
     created(){
         this.allProduct();

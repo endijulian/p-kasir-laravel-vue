@@ -11,7 +11,10 @@
                                 <h6 class="text-capitalize ps-3">Data User / Pengguna</h6>
                             </div>
                             <div class="col-6 d-flex justify-content-end">
-                                <router-link to="/storeuser" class="btn btn-info me-2">Add User</router-link>
+                                <div class="input-group input-group-outline p-2" style="width: 400px;">
+                                    <input type="text" class="form-control" v-model="searchUsers" placeholder="Search name...... ">
+                                </div>
+                                <router-link to="/storeuser" class="btn btn-info mt-2 me-2">Add User</router-link>
                             </div>
                         </div>
                     </div>
@@ -34,7 +37,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr v-for="(user, index) in users" :key="index.id">
+                                <tr v-for="(user, index) in filterSearch" :key="index.id">
 
                                     <td>
                                         <h6 class="mb-0 text-sm">{{ ++index }}</h6>
@@ -93,6 +96,7 @@ export default {
     data(){
         return{
             users: [],
+            searchUsers: "",
             loading: false,
         };
     },
@@ -132,6 +136,13 @@ export default {
                 }
             });
         },
+    },
+    computed: {
+        filterSearch(){
+            return this.users.filter((user) => {
+                return user.name.toLowerCase().match(this.searchUsers.toLowerCase());
+            })
+        }
     },
     created(){
         this.allUsers();
