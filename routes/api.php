@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\CategoryController;
+use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\RolesController;
 use App\Http\Controllers\Api\StockInProductController;
@@ -50,3 +51,9 @@ Route::get('/transaksi', [TransaksiController::class, 'index'])->name('transaksi
 Route::get('/detailTransaksi/{id}', [TransaksiController::class, 'detailTransaksi'])->name('detailTransaksi');
 Route::delete('/deleteTransaksi/{id}', [TransaksiController::class, 'deleteTransaksi'])->name('deleteTransaksi');
 Route::get('/printTransaksi/{id}', [TransaksiController::class, 'printTransaksi'])->name('printTransaksi');
+
+
+//Home
+Route::get('/stockToday', [HomeController::class, 'stockToday'])->name('stockToday');
+Route::get('/sellToday', [HomeController::class, 'sellToday'])->name('sellToday');
+Route::get('/todayProduct', [HomeController::class, 'todayProduct'])->name('todayProduct');

@@ -10,12 +10,12 @@
               </div>
               <div class="text-end pt-1">
                 <p class="text-sm mb-0 text-capitalize">Transaksi Hari Ini</p>
-                <h4 class="mb-0">$53k</h4>
+                <h4 class="mb-0">Rp {{ sellToday | format_number }}</h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+55% </span>than last week</p>
+              <p class="mb-0"><router-link to="/transaksi">More Info</router-link></p>
             </div>
           </div>
         </div>
@@ -26,13 +26,13 @@
                 <i class="material-icons opacity-10">person</i>
               </div>
               <div class="text-end pt-1">
-                <p class="text-sm mb-0 text-capitalize">Today's Users</p>
-                <h4 class="mb-0">2,300</h4>
+                <p class="text-sm mb-0 text-capitalize">Product Transaksi Terakhir</p>
+                <h4 class="mb-0">{{ product }}</h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <p class="mb-0"><span class="text-success text-sm font-weight-bolder">+3% </span>than last month</p>
+              <p class="mb-0">More Info</p>
             </div>
           </div>
         </div>
@@ -44,12 +44,12 @@
               </div>
               <div class="text-end pt-1">
                 <p class="text-sm mb-0 text-capitalize">Stock Barang Masuk Hari Ini</p>
-                <h4 class="mb-0">3,462</h4>
+                <h4 class="mb-0">{{ stockToday }}</h4>
               </div>
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <p class="mb-0"><span class="text-danger text-sm font-weight-bolder">-2%</span> than yesterday</p>
+              <p class="mb-0"><router-link to="/barangMasuk">More Info</router-link></p>
             </div>
           </div>
         </div>
@@ -75,8 +75,36 @@ export default {
     },
     data(){
         return{
-            imageBg: "/imgKasir/logo.jpeg"
+            imageBg: "/imgKasir/logo.jpeg",
+            stockToday : "",
+            sellToday : "",
+            product :"",
         }
+    },
+    mounted(){
+        this.todayStock();
+        this.todaySell();
+        this.todayProduct();
+    },
+    methods:{
+        todayStock() {
+        axios
+            .get("/api/stockToday/")
+            .then(({ data }) => (this.stockToday = data))
+            .catch((error) => (this.errors = error.response.data.errors));
+        },
+        todaySell() {
+        axios
+            .get("/api/sellToday/")
+            .then(({ data }) => (this.sellToday = data))
+            .catch((error) => (this.errors = error.response.data.errors));
+        },
+        todayProduct() {
+        axios
+            .get("/api/todayProduct/")
+            .then(({ data }) => (this.product = data))
+            .catch((error) => (this.errors = error.response.data.errors));
+        },
     }
 }
 </script>

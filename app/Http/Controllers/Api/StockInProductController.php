@@ -52,6 +52,7 @@ class StockInProductController extends Controller
         $barangMasuk            = new ProductInStock;
         $barangMasuk->name      = $request->name;
         $barangMasuk->qty       = $request->qty;
+        $barangMasuk->date      = date('Y-m-d');
         $barangMasuk->save();
 
         return response()->json($barangMasuk);
