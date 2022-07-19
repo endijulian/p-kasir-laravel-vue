@@ -62,6 +62,22 @@
                             <small class="text-danger" v-if="errors.price">{{ errors.price[0] }}</small>
                         </div>
 
+                        <div class="mb-3">
+                            <label class="form-label">Gambar</label>
+                            <div class="input-group input-group-outline my">
+                                <input type="file" class="form-control"  @change="onFileSelected">
+                            </div>
+                            <small class="text-danger" v-if="errors.image">{{ errors.image[0] }}</small>
+                          <div class="col-md-6 mt-2">
+                            <img
+                              :src="form.image"
+                              alt=""
+                              style="height: 150px; width: 150px"
+                            />
+                          </div>
+                          <small class="text-danger">Ukuran : 150 x 150</small>
+                        </div>
+
                     </div>
                 </div>
 
@@ -92,13 +108,27 @@ export default {
                 produck_code: null,
                 category_id: null,
                 price : null,
-                qty : null
+                qty : null,
+                image: null
             },
             errors:{},
             category:{},
         }
     },
     methods: {
+        onFileSelected(event) {
+            let file = event.target.files[0];
+            if (file.size > 1048770) {
+                Notification.image_validation();
+            } else {
+                let reader = new FileReader();
+                reader.onload = (event) => {
+                this.form.image = event.target.result;
+                console.log(event.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        },
         submitProduct(){
             axios.post("/api/product", this.form)
             .then(() => {

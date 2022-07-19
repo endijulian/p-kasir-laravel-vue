@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
@@ -49,16 +50,31 @@ class ProductController extends Controller
             'category_id'   => 'required',
             'qty'           => 'required|numeric',
             'price'         => 'required|numeric',
+            'image'         => 'required'
         ]);
 
-        $data               = new Product;
-        $data->produck_name = $request->produck_name;
-        $data->produck_code = $request->produck_code;
-        $data->category_id  = $request->category_id;
-        $data->qty          = $request->qty;
-        $data->price        = $request->price;
+        if ($request->image) {
+            $position   = strpos($request->image, ';');
+            $sub        = substr($request->image, 0, $position);
+            $ext        = explode('/', $sub)[1];
 
-        $data->save();
+            $name           = time() . "." . $ext;
+            $img            = Image::make($request->image)->resize(150, 150);
+            $upload_path    = 'backend/product/';
+            $image_url      = $upload_path . $name;
+
+            $img->save($image_url);
+
+            $data               = new Product;
+            $data->produck_name = $request->produck_name;
+            $data->produck_code = $request->produck_code;
+            $data->category_id  = $request->category_id;
+            $data->qty          = $request->qty;
+            $data->price        = $request->price;
+            $data->image        = $image_url;
+
+            $data->save();
+        }
 
         return response()->json($data);
     }
@@ -102,6 +118,7 @@ class ProductController extends Controller
             'category_id'   => 'required',
             'qty'           => 'required|numeric',
             'price'         => 'required|numeric',
+            'image'         => 'required'
         ]);
 
         $data                   = array();
@@ -110,8 +127,33 @@ class ProductController extends Controller
         $data['category_id']    = $request->category_id;
         $data['qty']            = $request->qty;
         $data['price']          = $request->price;
+        $image                  = $request->newimage;
 
-        Product::where('id', $id)->update($data);
+        if ($image) {
+            $position   = strpos($image, ';');
+            $sub        = substr($image, 0, $position);
+            $ext        = explode('/', $sub)[1];
+
+            $name           = time() . "." . $ext;
+            $img            = Image::make($image)->resize(150, 150);
+            $upload_path    = 'backend/product/';
+            $image_url      = $upload_path . $name;
+
+            $success        = $img->save($image_url);
+
+            if ($success) {
+                $data['image']  = $image_url;
+                $img            = Product::where('id', $id)->first();
+                $image_path     = $img->image;
+                $done           = unlink($image_path);
+                $user           =  Product::where('id', $id)->update($data);
+            }
+        } else {
+            $oldPhoto       = $request->image;
+            $data['image']  = $oldPhoto;
+            $user           =  Product::where('id', $id)->update($data);
+        }
+
     }
 
     /**
@@ -122,7 +164,15 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        $product = DB::table('product')->where('id', $id)->delete();
+        $product    = DB::table('product')->where('id', $id)->first();
+        $image_url  = $product->image;
+
+        if ($image_url) {
+            unlink($image_url);
+            DB::table('product')->where('id', $id)->delete();
+        } else {
+            DB::table('product')->where('id', $id)->delete();
+        }
 
         return response()->json($product);
     }

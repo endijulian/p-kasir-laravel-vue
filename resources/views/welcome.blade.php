@@ -18,6 +18,7 @@
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
   <link id="pagestyle" href="{{ asset('template-admin/assets/css/material-dashboard.css?v=3.0.4') }}" rel="stylesheet" />
+  <link href="{{ asset('template-admin/assets/vendor/@fortawesome/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
 
 </head>
 
@@ -45,7 +46,7 @@
                 <li class="nav-item">
                     <router-link class="nav-link text-white " to="/orderMenu">
                       <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">view_in_ar</i>
+                        <i class="material-icons opacity-10">add_shopping_cart</i>
                       </div>
                       <span class="nav-link-text ms-1">Order Menu</span>
                     </router-link>
@@ -61,7 +62,7 @@
                 <li class="nav-item">
                   <router-link class="nav-link text-white" active-class="active" to="/category">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i class="material-icons opacity-10">format_textdirection_r_to_l</i>
+                      <i class="material-icons opacity-10">apps</i>
                     </div>
                     <span class="nav-link-text ms-1">Kategori</span>
                   </router-link>
@@ -69,7 +70,7 @@
                 <li class="nav-item">
                   <router-link class="nav-link text-white" active-class="active" to="/product">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i class="material-icons opacity-10">notifications</i>
+                      <i class="material-icons opacity-10">assignment</i>
                     </div>
                     <span class="nav-link-text ms-1">Produk</span>
                   </router-link>
@@ -91,7 +92,7 @@
                 <li class="nav-item">
                     <router-link class="nav-link text-white " to="/barangMasuk">
                       <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">notifications</i>
+                        <i class="material-icons opacity-10">call_received</i>
                       </div>
                       <span class="nav-link-text ms-1">Barang Masuk</span>
                     </router-link>
@@ -99,7 +100,7 @@
                 <li class="nav-item">
                     <router-link class="nav-link text-white " to="/barangKeluar">
                       <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i class="material-icons opacity-10">notifications</i>
+                        <i class="material-icons opacity-10">call_made</i>
                       </div>
                       <span class="nav-link-text ms-1">Barang Keluar</span>
                     </router-link>

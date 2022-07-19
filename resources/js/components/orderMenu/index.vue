@@ -113,7 +113,7 @@
             <div class="card">
                 <div class="card-header mx-4 p-3 text-center">
                     <!-- <div class="icon icon-shape icon-lg bg-gradient-gray shadow text-center border-radius-lg mt-2"> -->
-                        <img :src="image_src" alt="" width="150" height="150">
+                        <img :src="product.image" alt="" width="150" height="150" class="border-radius-xl">
                     <!-- </div> -->
                 </div>
                 <div class="card-body pt-0 p-3 text-center">
