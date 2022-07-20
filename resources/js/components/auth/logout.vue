@@ -6,6 +6,7 @@ export default {
     created(){
         localStorage.removeItem('token')
         localStorage.removeItem('user')
+        localStorage.removeItem('roles')
 
         Toast.fire({
             icon: 'success',

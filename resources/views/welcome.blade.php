@@ -51,7 +51,7 @@
                       <span class="nav-link-text ms-1">Order Menu</span>
                     </router-link>
                   </li>
-                <li class="nav-item">
+                <li class="nav-item" id="kasir1" style="display: none">
                   <router-link class="nav-link text-white" active-class="active" to="/user">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                       <i class="material-icons opacity-10">person</i>
@@ -59,7 +59,7 @@
                     <span class="nav-link-text ms-1">Pengguna</span>
                   </router-link>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" id="kasir2" style="display: none">
                   <router-link class="nav-link text-white" active-class="active" to="/category">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                       <i class="material-icons opacity-10">apps</i>
@@ -67,7 +67,7 @@
                     <span class="nav-link-text ms-1">Kategori</span>
                   </router-link>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" id="kasir3" style="display: none">
                   <router-link class="nav-link text-white" active-class="active" to="/product">
                     <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                       <i class="material-icons opacity-10">assignment</i>
@@ -87,9 +87,9 @@
                     </router-link>
                 </li>
                 <li class="nav-item mt-3">
-                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Stock Gudang</h6>
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8" id="ok" style="display: none">Stock Gudang</h6>
                   </li>
-                <li class="nav-item">
+                <li class="nav-item" id="kasir4" style="display: none">
                     <router-link class="nav-link text-white " to="/barangMasuk">
                       <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">call_received</i>
@@ -97,7 +97,7 @@
                       <span class="nav-link-text ms-1">Barang Masuk</span>
                     </router-link>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" id="kasir5" style="display: none">
                     <router-link class="nav-link text-white " to="/barangKeluar">
                       <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="material-icons opacity-10">call_made</i>
@@ -144,11 +144,30 @@
   <script src="{{ asset('admin-template/assets/js/plugins/chartjs.min.js') }}"></script>
 
   <script>
+    let roles = localStorage.getItem('roles');
     let token = localStorage.getItem('token');
+
+    const kasir1 = document.getElementById('kasir1');
+    const kasir2 = document.getElementById('kasir2');
+    const kasir3 = document.getElementById('kasir3');
+    const kasir4 = document.getElementById('kasir4');
+    const kasir5 = document.getElementById('kasir5');
+    const ok     = document.getElementById('ok');
+
+    if(roles == 1){
+        kasir1.style.removeProperty('display');
+        kasir2.style.removeProperty('display');
+        kasir3.style.removeProperty('display');
+        kasir4.style.removeProperty('display');
+        kasir5.style.removeProperty('display');
+        ok.style.removeProperty('display');
+    }
+
     if(token){
         $("#sidenav-main").css("display", "");
         $("#navbarBlur").css("display", "");
     }
+
   </script>
 
   <script>

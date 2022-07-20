@@ -6,7 +6,7 @@
           <div class="card">
             <div class="card-header p-3 pt-2">
               <div class="icon icon-lg icon-shape bg-gradient-dark shadow-dark text-center border-radius-xl mt-n4 position-absolute">
-                <i class="material-icons opacity-10">weekend</i>
+                <i class="material-icons opacity-10">account_balance_wallet</i>
               </div>
               <div class="text-end pt-1">
                 <p class="text-sm mb-0 text-capitalize">Transaksi Hari Ini</p>
@@ -15,7 +15,7 @@
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <p class="mb-0"><router-link to="/transaksi">More Info</router-link></p>
+             <!-- /\ <p class="mb-0"><router-link to="/transaksi">More Info</router-link></p> -->
             </div>
           </div>
         </div>
@@ -23,7 +23,7 @@
           <div class="card">
             <div class="card-header p-3 pt-2">
               <div class="icon icon-lg icon-shape bg-gradient-primary shadow-primary text-center border-radius-xl mt-n4 position-absolute">
-                <i class="material-icons opacity-10">person</i>
+                <i class="material-icons opacity-10">assignment</i>
               </div>
               <div class="text-end pt-1">
                 <p class="text-sm mb-0 text-capitalize">Product Transaksi Terakhir</p>
@@ -32,7 +32,7 @@
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <p class="mb-0">More Info</p>
+              <!-- <p class="mb-0">More Info</p> -->
             </div>
           </div>
         </div>
@@ -40,7 +40,7 @@
           <div class="card">
             <div class="card-header p-3 pt-2">
               <div class="icon icon-lg icon-shape bg-gradient-success shadow-success text-center border-radius-xl mt-n4 position-absolute">
-                <i class="material-icons opacity-10">person</i>
+                <i class="material-icons opacity-10">assignment_turned_in</i>
               </div>
               <div class="text-end pt-1">
                 <p class="text-sm mb-0 text-capitalize">Stock Barang Masuk Hari Ini</p>
@@ -49,7 +49,7 @@
             </div>
             <hr class="dark horizontal my-0">
             <div class="card-footer p-3">
-              <p class="mb-0"><router-link to="/barangMasuk">More Info</router-link></p>
+              <!-- <p class="mb-0"><router-link to="/barangMasuk">More Info</router-link></p> -->
             </div>
           </div>
         </div>

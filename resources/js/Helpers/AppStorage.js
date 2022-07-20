@@ -8,14 +8,20 @@ class AppStorage{
         localStorage.setItem('user',user);
     }
 
-    store(token,user){
+    storeRoles(roles){
+        localStorage.setItem('roles',roles);
+    }
+
+    store(token,user,roles){
         this.storeToken(token)
         this.storeUser(user)
+        this.storeRoles(roles)
      }
 
      clear(){
          localStorage.removeItem('token')
          localStorage.removeItem('user')
+         localStorage.removeItem('roles')
      }
 
      getToken(){
@@ -24,6 +30,10 @@ class AppStorage{
 
       getUser(){
          localStorage.getItem(user);
+     }
+
+     getRoles(){
+        localStorage.getItem(roles);
      }
 
    }
